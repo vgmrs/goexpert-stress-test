@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  test-basic:
+    build: .
+    command: --url=http://httpbin.org/get --requests=100 --concurrency=10
+    restart: 'no'
+
+  test-high-load:
+    build: .
+    command: --url=http://httpbin.org/get --requests=1000 --concurrency=50
+    restart: 'no'
+
+  test-low-concurrency:
+    build: .
+    command: --url=http://httpbin.org/get --requests=100 --concurrency=1
+    restart: 'no'
+
+  test-many-requests:
+    build: .
+    command: --url=http://httpbin.org/get --requests=10000 --concurrency=100
+    restart: 'no'
+
+  test-timeout:
+    build: .
+    command: --url=http://httpbin.org/delay/2 --requests=100 --concurrency=20
+    restart: 'no'
+
+  test-errors:
+    build: .
+    command: --url=http://httpbin.org/status/404 --requests=100 --concurrency=10
+    restart: 'no'
+
+  test-connection-errors:
+    build: .
+    command: --url=http://fake-address-stress-test-cli-vgmrs.com --requests=50 --concurrency=5
+    restart: 'no'
